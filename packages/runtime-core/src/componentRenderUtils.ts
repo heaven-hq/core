@@ -129,6 +129,13 @@ export function renderComponentRoot(
   ) {
     ;[root, setRoot] = getChildRoot(result)
   }
+  
+  if (
+    result.patchFlag > 0 &&
+    result.patchFlag & (PatchFlags.STABLE_FRAGMENT | PatchFlags.KEYED_FRAGMENT | PatchFlags.UNKEYED_FRAGMENT)
+  ) {
+    ;root = filterSingleRoot(result.children)
+  }
 
   if (fallthroughAttrs && inheritAttrs !== false) {
     const keys = Object.keys(fallthroughAttrs)
