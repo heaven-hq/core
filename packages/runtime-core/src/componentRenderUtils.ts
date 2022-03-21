@@ -129,12 +129,12 @@ export function renderComponentRoot(
   ) {
     ;[root, setRoot] = getChildRoot(result)
   }
-  // | PatchFlags.KEYED_FRAGMENT | PatchFlags.UNKEYED_FRAGMENT
+  // 
   if (
     result.patchFlag > 0 &&
-    result.patchFlag & (PatchFlags.STABLE_FRAGMENT)
+    result.patchFlag & (PatchFlags.STABLE_FRAGMENT | PatchFlags.KEYED_FRAGMENT | PatchFlags.UNKEYED_FRAGMENT)
   ) {
-    ;root = filterSingleRoot(result.children)
+    ;root = filterSingleRoot(result.children as VNodeArrayChildren) || root
   }
 
   if (fallthroughAttrs && inheritAttrs !== false) {
