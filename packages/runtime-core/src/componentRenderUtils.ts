@@ -125,16 +125,12 @@ export function renderComponentRoot(
   if (
     __DEV__ &&
     result.patchFlag > 0 &&
-    result.patchFlag & PatchFlags.DEV_ROOT_FRAGMENT
-  ) {
-    ;[root, setRoot] = getChildRoot(result)
-  } else if (
+    result.patchFlag & PatchFlags.DEV_ROOT_FRAGMENT ||
     result.patchFlag > 0 &&
     result.patchFlag & PatchFlags.STABLE_FRAGMENT
   ) {
-    ;root = filterSingleRoot(result.children as VNodeArrayChildren) || root
-  }
-
+    ;[root, setRoot] = getChildRoot(result)
+  } 
   if (fallthroughAttrs && inheritAttrs !== false) {
     const keys = Object.keys(fallthroughAttrs)
     const { shapeFlag } = root
