@@ -128,11 +128,9 @@ export function renderComponentRoot(
     result.patchFlag & PatchFlags.DEV_ROOT_FRAGMENT
   ) {
     ;[root, setRoot] = getChildRoot(result)
-  }
-  // 
-  if (
+  } else if (
     result.patchFlag > 0 &&
-    result.patchFlag & (PatchFlags.STABLE_FRAGMENT | PatchFlags.KEYED_FRAGMENT | PatchFlags.UNKEYED_FRAGMENT)
+    result.patchFlag & PatchFlags.STABLE_FRAGMENT
   ) {
     ;root = filterSingleRoot(result.children as VNodeArrayChildren) || root
   }
