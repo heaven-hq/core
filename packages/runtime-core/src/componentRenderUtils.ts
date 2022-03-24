@@ -122,7 +122,7 @@ export function renderComponentRoot(
   // to have comments along side the root element which makes it a fragment
   let root = result
   let setRoot: ((root: VNode) => void) | undefined = undefined
-  if (
+  /*if (
     __DEV__ &&
     result.patchFlag > 0 &&
     result.patchFlag & PatchFlags.DEV_ROOT_FRAGMENT ||
@@ -130,7 +130,15 @@ export function renderComponentRoot(
     result.patchFlag & PatchFlags.STABLE_FRAGMENT
   ) {
     ;[root, setRoot] = getChildRoot(result)
-  } 
+  } */
+  
+    if (
+    __DEV__ &&
+    result.patchFlag > 0 &&
+    result.patchFlag & PatchFlags.DEV_ROOT_FRAGMENT
+  ) {
+    ;[root, setRoot] = getChildRoot(result)
+  }
   if (fallthroughAttrs && inheritAttrs !== false) {
     const keys = Object.keys(fallthroughAttrs)
     const { shapeFlag } = root
@@ -229,7 +237,7 @@ export function renderComponentRoot(
     root.transition = vnode.transition
   }
 
-  if (__DEV__ && setRoot) {
+  if (setRoot) {
     setRoot(root)
   } else {
     result = root
